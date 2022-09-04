@@ -1,27 +1,28 @@
-
-
 {
 module Lexer ( lexer ) where
-import Syntax ( Token )
+
+import Syntax ( Token(..) )
+
 }
 
 %wrapper "basic"
 
 $digit = 0-9
 $alpha = [a-z A-Z]
-$special = [\. \; \( \)]
+$special = [\. \; \( \) \; \\]
 $alphaNum = [$alpha $digit]
 
 tokens :-
 
-    $alphaNum           { \s -> TokenVar }
+    \n                  ;
+    "--".*				;
+    $white+             ;
+    $alphaNum+          { \s -> TokenVar s }
     \)                  { \s -> TokenRParen }
     \(                  { \s -> TokenLParen }
-    \;                  { \s -> TokenSemiColon }
-    \.                  { \s -> TokenDot }
-    \n                  ;
-    $digit+				{ \s -> TokenDigit }
-    $alpha		        { \s -> TokenAlpha }
+    \;                  { \s -> TokenSemiColon}
+    \.                  { \s -> TokenDot}
+    \\                  { \s -> TokenLambda}
 
 {
 lexer :: String -> [Token]
