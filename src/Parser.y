@@ -1,16 +1,18 @@
 {
-module Parser ( parser ) where
+module Parser ( myParser ) where
+
 import Syntax ( Term(..), Token(..) )
+
 }
 
-%name HappyParser
+%name happyParser
 %tokentype { Token }
-%error { parserError }
+%error { parseError }
 
 %token
 
     var   { TokenVar $$ }
-    lam   { TokenLambda $$ }
+    lam   { TokenLambda }
     "."   { TokenDot }
     "("   { TokenLParen }
     ")"   { TokenRParen }
@@ -18,29 +20,26 @@ import Syntax ( Term(..), Token(..) )
 
 %%
 
+TermList :: { [Term] }
+TermList : Term ";" TermList { $1 : $3 }
+    | {- empty -} { [] }
+
 Term :: { Term }
-Term : AppTerm        { $1 }
+Term : AppTerm          { $1 }
     | lam var "." Term  { Lam $2 $4 }
 
-AppTerm :: { AppTerm }
+AppTerm :: { Term }
 AppTerm : aTerm         { $1 }
         | AppTerm aTerm { App $1 $2 }
 
-aTerm :: { aTerm }
-aTerm : "(" Term ")"    { Var $2 }
-    | var               { Var $1 }
-
-program :: { program }
-program : TermList { $1 }
-
-TermList :: { TermList }
-TermList : Term ";" TermList { $2 $3 }
-
+aTerm :: { Term }
+aTerm : var               { Var $1 }
+    | "(" Term ")"    { $2 }
 
 {
-parserError :: [token] -> a
-perserError = error "Parser Error"
+parseError :: [Token] -> a
+parseError = error "My parse error"
 
-parser :: [token] -> string
-parser n = HappyParser n
+myParser :: [Token] -> [Term]
+myParser = happyParser
 }

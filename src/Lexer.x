@@ -1,5 +1,5 @@
 {
-module Lexer ( lexer ) where
+module Lexer ( myLexer ) where
 
 import Syntax ( Token(..) )
 
@@ -25,6 +25,6 @@ tokens :-
     \\                  { \s -> TokenLambda}
 
 {
-lexer :: String -> [Token]
-lexer n = alexScanTokens n
+myLexer :: String -> [Token]
+myLexer n = alexScanTokens n
 }
