@@ -7,9 +7,9 @@ import System.Exit        ( exitFailure )
 import System.IO          ( hPutStrLn, stderr )
 
 -- Local imports
-import Lexer  ( lexer )
-import Parser ( parser )
-import Syntax ( Term ) -- Syntax.hs
+import Lexer  ( myLexer )
+import Parser ( myParser )
+import Syntax ( Term )
 
 ------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ main = do
       -- lexer  :: String -> [Token]
       -- parser :: [Token] -> [Term]
       let terms :: [Term]
-          terms = parser $ lexer content
+          terms = myParser $ myLexer content
       mapM_ print terms
 
     _     -> do hPutStrLn stderr $ "Usage: " ++ progName ++ " FILE"
