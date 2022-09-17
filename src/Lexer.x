@@ -1,6 +1,7 @@
+{
 {-# OPTIONS_GHC -Wno-missing-local-signatures #-}
 {-# OPTIONS_HADDOCK prune#-}
-{
+
 -- |All the documention from the file is from https://haskell-alex.readthe
 --docs.io/en/latest/api.html?highlight=alexScanTokens#the-basic-wrapper
 module Lexer ( myLexer ) where
