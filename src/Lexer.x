@@ -2,14 +2,14 @@
 module Lexer ( myLexer ) where
 
 import Syntax ( Token(..) )
-
 }
 
+%encoding "utf-8"
 %wrapper "basic"
 
 $digit = 0-9
 $alpha = [a-z A-Z]
-$special = [\. \; \( \) \; \\]
+$special = [\. \; \( \) \;]
 $alphaNum = [$alpha $digit]
 
 tokens :-
@@ -17,12 +17,12 @@ tokens :-
     \n                  ;
     "--".*				;
     $white+             ;
-    $alphaNum+          { \s -> TokenVar s }
+    $alpha $alphaNum*   { \s -> TokenVar s }
     \)                  { \s -> TokenRParen }
     \(                  { \s -> TokenLParen }
     \;                  { \s -> TokenSemiColon}
     \.                  { \s -> TokenDot}
-    \\                  { \s -> TokenLambda}
+    "λ" | \\            { \s -> TokenLambda}
 
 {
 myLexer :: String -> [Token]

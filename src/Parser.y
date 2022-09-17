@@ -2,7 +2,6 @@
 module Parser ( myParser ) where
 
 import Syntax ( Term(..), Token(..) )
-
 }
 
 %name happyParser
@@ -38,8 +37,9 @@ aTerm : var               { Var $1 }
 
 {
 parseError :: [Token] -> a
-parseError = error "My parse error"
+parseError = error "Parser Error"
 
 myParser :: [Token] -> [Term]
 myParser = happyParser
 }
+
