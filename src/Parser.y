@@ -1,6 +1,7 @@
 
-{-# OPTIONS_HADDOCK prune#-} 
 {
+
+{-# OPTIONS_HADDOCK prune#-} 
 
 -- | All the documention from the file is from https://bnfc.readthedocs.io/_/
 --downloads/en/latest/pdf/
