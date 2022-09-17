@@ -28,10 +28,9 @@ import Syntax ( Term(..), Token(..) ) -- ^import top level fuction
     ";"   { TokenSemiColon }
 
 %%
-------------------------------------------------------------------------------
 --|BNF predefine by the teacher,each grammar expressions has its own precences
 -- levels and category symbols, to describe semantic definition
-TermList :: { [Term] } --^ This Expression defines the concrete grammar of the
+TermList :: { [Term] } -- ^ This Expression defines the concrete grammar of the
 -- input 
 TermList : Term ";" TermList { $1 : $3 }
     | {- empty -} { [] } 
