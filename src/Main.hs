@@ -1,4 +1,4 @@
-
+-- Tested with GHC 9.2.4
 module Main ( main ) where
 
 -- Global imports
